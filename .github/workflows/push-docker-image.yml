@@ -18,8 +18,8 @@ permissions:
   contents: read
 
 env:
-  AUTODARTS_IMAGE_NAME: autodarts/autodarts
-  UVC_IMAGE_NAME: autodarts/autodarts-uvc
+  AUTODARTS_IMAGE_NAME: michvllni/autodarts
+  UVC_IMAGE_NAME: michvllni/autodarts-uvc
 
 jobs:
   push_to_registry:
