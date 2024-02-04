@@ -9,7 +9,7 @@
 #RUN gcc -o autodarts autodarts.c
 
 #if we do not compile, download the executable
-FROM alpine:stable AS build
+FROM alpine:latest AS build
 ARG VERSION="0.22.0"
 ARG TARGETPLATFORM="linux/amd64"
 ARG REPOSITORY="autodarts/releases"
@@ -27,7 +27,7 @@ RUN apt update && \
     rm $ASSETNAME
 
 ###Run
-FROM alpine:stable
+FROM alpine:latest
 WORKDIR /root/.local/bin/autodarts
 COPY --from=build /autodarts /root/.local/bin/autodarts
 
