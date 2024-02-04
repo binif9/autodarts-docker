@@ -9,15 +9,15 @@
 #RUN gcc -o autodarts autodarts.c
 
 #if we do not compile, download the executable
-FROM debian:stable AS build
+FROM alpine:latest AS build
 ARG VERSION="0.22.0"
 ARG TARGETPLATFORM="linux/amd64"
 ARG REPOSITORY="autodarts/releases"
 
 WORKDIR /
 
-RUN apt update && \
-    apt install -y wget tar && \
+RUN apk update && \
+    apk add -y wget tar && \
     PLATFORM=$(echo ${TARGETPLATFORM} | cut -d'/' -f1) && \
     ARCH=$(echo ${TARGETPLATFORM} | cut -d'/' -f2) && \
     ASSETNAME="autodarts${VERSION}.${PLATFORM}-${ARCH}.tar.gz" && \
@@ -27,7 +27,7 @@ RUN apt update && \
     rm $ASSETNAME
 
 ###Run
-FROM debian:stable
+FROM alpine:latest
 WORKDIR /root/.local/bin/autodarts
 COPY --from=build /autodarts /root/.local/bin/autodarts
 
