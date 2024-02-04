@@ -62,3 +62,13 @@ You can reset the system to the original driver file by passing the `--uninstall
 ```bash
 bash <(curl -sL get.autodarts.io/uvc) --uninstall
 ```
+
+### Docker installation
+You can also run autodarts in a docker container.
+To get started, use the following docker-compose configuration:
+```yml
+version: '3.3'
+services:
+  autodarts:
+    image: ghcr.io/autodarts/autodarts:latest
+```
