@@ -17,7 +17,7 @@ ARG REPOSITORY="autodarts/releases"
 WORKDIR /
 
 RUN apk update && \
-    apk add -y wget tar && \
+    apk add wget tar && \
     PLATFORM=$(echo ${TARGETPLATFORM} | cut -d'/' -f1) && \
     ARCH=$(echo ${TARGETPLATFORM} | cut -d'/' -f2) && \
     ASSETNAME="autodarts${VERSION}.${PLATFORM}-${ARCH}.tar.gz" && \
