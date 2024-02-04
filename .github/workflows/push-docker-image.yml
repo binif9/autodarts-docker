@@ -19,7 +19,6 @@ permissions:
 
 env:
   AUTODARTS_IMAGE_NAME: michvllni/autodarts
-  UVC_IMAGE_NAME: michvllni/autodarts-uvc
 
 jobs:
   push_to_registry:
