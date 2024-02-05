@@ -1,0 +1,10 @@
+version: '3.3'
+services:
+  autodarts:
+    image: ghcr.io/michvllni/autodarts:latest
+    container_name: autodarts
+    ports:
+    - 3180:3180
+    privileged: true
+    volumes:
+    - ./config:/root/.config/autodarts
