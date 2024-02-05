@@ -1,3 +1,7 @@
+ARG VERSION="0.22.0"
+ARG TARGETPLATFORM="linux/arm64"
+ARG REPOSITORY="autodarts/releases"
+
 ###Build
 #if we want to compile, add a build step with the gcc image
 # ARG GCC_VERSION=9.5.0
@@ -9,11 +13,10 @@
 #RUN gcc -o autodarts autodarts.c
 
 #if we do not compile, download the executable
-FROM alpine:latest AS build
-ARG VERSION="0.22.0"
-ARG TARGETPLATFORM="linux/amd64"
-ARG REPOSITORY="autodarts/releases"
-
+FROM --platform=${TARGETPLATFORM} alpine:latest AS build
+ARG VERSION
+ARG TARGETPLATFORM
+ARG REPOSITORY
 WORKDIR /
 
 RUN apk update && \
@@ -26,7 +29,10 @@ RUN apk update && \
     rm $ASSETNAME
 
 ###Run
-FROM alpine:latest
+FROM --platform=${TARGETPLATFORM} alpine:latest
+ARG VERSION
+ARG TARGETPLATFORM
+ARG REPOSITORY
 WORKDIR /root/.local/bin/autodarts
 COPY --from=build /autodarts /root/.local/bin/autodarts
 RUN chmod +x ./autodarts
@@ -34,5 +40,4 @@ RUN chmod +x ./autodarts
 #expose the autodarts port
 EXPOSE 3180
 
-ENTRYPOINT "./autodarts"
-
+CMD ["./autodarts"]
