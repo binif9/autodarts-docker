@@ -33,8 +33,8 @@ FROM --platform=${TARGETPLATFORM} alpine:latest
 ARG VERSION
 ARG TARGETPLATFORM
 ARG REPOSITORY
-WORKDIR /root/.local/bin/autodarts
-COPY --from=build /autodarts /root/.local/bin/autodarts
+WORKDIR /usr/local/bin/autodarts
+COPY --from=build /autodarts .
 RUN chmod +x ./autodarts
 
 #expose the autodarts port
