@@ -1,5 +1,6 @@
 ## Installation
-It is also possible to run autodarts in a docker container.
+It is possible to run autodarts in a docker container.
+
 If you do not know how to install docker, you cann follow [this](https://docs.docker.com/engine/install/) guide.
 
 Please note that this is only available for linux based systems with either arm64 or amd64 architectures so far.
@@ -25,6 +26,9 @@ You can also find this configuration at [This link](https://raw.githubuserconten
 Save it into the directory of your choice, then navigate into that directory and execute `sudo docker-compose up -d`
 
 ## Useful commands
-To view the logs, use `sudo docker compose logs`
-If you wish to follow the logs, you can use `sudo docker compose logs -f`
-If you wish to restart the container, you can use `sudo docker compose restart`
+| Command | Explanation |
+| --------| ----------- |
+| `sudo docker compose logs` | Print the logs from the container |
+| `sudo docker compose logs -f` | Follow the logs. Press ctrl+c to cancel |
+| `sudo docker compose restart` | Restart the container |
+| `sudo docker compose down` | Remove the container |
