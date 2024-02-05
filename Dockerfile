@@ -23,13 +23,13 @@ RUN apk update && \
     ASSETNAME="autodarts${VERSION}.${PLATFORM}-${ARCH}.tar.gz" && \
     wget "https://github.com/${REPOSITORY}/releases/download/v${VERSION}/$ASSETNAME" && \
     tar -vxf $ASSETNAME && \
-    chmod +x ./autodarts && \
     rm $ASSETNAME
 
 ###Run
 FROM alpine:latest
 WORKDIR /root/.local/bin/autodarts
 COPY --from=build /autodarts /root/.local/bin/autodarts
+RUN chmod +x ./autodarts
 
 #expose the autodarts port
 EXPOSE 3180
