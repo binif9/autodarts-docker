@@ -34,5 +34,5 @@ RUN chmod +x ./autodarts
 #expose the autodarts port
 EXPOSE 3180
 
-CMD ["./autodarts"]
+ENTRYPOINT "./autodarts"
 
