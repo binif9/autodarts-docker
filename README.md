@@ -1,4 +1,4 @@
-## Docker installation
+## Installation
 It is also possible to run autodarts in a docker container.
 If you do not know how to install docker, you cann follow [this](https://docs.docker.com/engine/install/) guide.
 
