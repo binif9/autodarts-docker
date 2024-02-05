@@ -9,9 +9,11 @@
 
 name: Publish autodarts docker image
 
+#trigger when a new version tag is set
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - 'v*.*.*'
 
 permissions:
   packages: write
