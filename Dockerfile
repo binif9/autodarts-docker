@@ -1,5 +1,6 @@
-ARG VERSION="0.22.0" \
-    TARGETPLATFORM="linux/arm64" \
+ARG VERSION \
+    BUILDPLATFORM \
+    TARGETPLATFORM \
     REPOSITORY="autodarts/releases"
 
 ###Build
@@ -13,8 +14,9 @@ ARG VERSION="0.22.0" \
 #RUN gcc -o autodarts autodarts.c
 
 #if we do not compile, download the executable
-FROM --platform=${TARGETPLATFORM} alpine:latest AS build
+FROM --platform=${BUILDPLATFORM} alpine:latest AS build
 ARG VERSION \
+    BUILDPLATFORM \
     TARGETPLATFORM \
     REPOSITORY
 
@@ -32,6 +34,7 @@ RUN apk update && \
 ###Run
 FROM --platform=${TARGETPLATFORM} alpine:latest
 ARG VERSION \
+    BUILDPLATFORM \
     TARGETPLATFORM \
     REPOSITORY
 WORKDIR /usr/local/bin/autodarts
