@@ -12,6 +12,7 @@ services:
   autodarts:
     image: ghcr.io/michvllni/autodarts:latest
     container_name: autodarts
+    restart: unless-stopped
     ports:
     - 3180:3180
     privileged: true
