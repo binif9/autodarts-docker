@@ -9,8 +9,7 @@ ARG REF \
     REPOSITORY
 
 WORKDIR /
-RUN echo "I am running on ${BUILDPLATFORM}, building for ${TARGETPLATFORM}"  && \
-    apk update && \
+RUN apk update && \
     apk add wget tar && \
     PLATFORM=$(echo ${TARGETPLATFORM} | cut -d'/' -f1) && \
     ARCH=$(echo ${TARGETPLATFORM} | cut -d'/' -f2) && \
