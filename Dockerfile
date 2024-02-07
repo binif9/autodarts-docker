@@ -14,8 +14,8 @@ RUN echo "I am running on ${BUILDPLATFORM}, building for ${TARGETPLATFORM}"  && 
     apk add wget tar && \
     PLATFORM=$(echo ${TARGETPLATFORM} | cut -d'/' -f1) && \
     ARCH=$(echo ${TARGETPLATFORM} | cut -d'/' -f2) && \
-    ASSETNAME="autodarts${REF}.$PLATFORM-$ARCH.tar.gz" && \
-    VERSION=$(echo ${REF} | sed -e 's/^v//') && \
+        VERSION=$(echo ${REF} | sed -e 's/^v//') && \
+    ASSETNAME="autodarts$VERSION.$PLATFORM-$ARCH.tar.gz" && \
     wget "https://github.com/$REPOSITORY/releases/download/${REF}/$ASSETNAME" && \
     tar -vxf $ASSETNAME && \
     rm $ASSETNAME
