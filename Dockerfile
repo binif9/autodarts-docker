@@ -1,8 +1,9 @@
-ARG REPOSITORY="autodarts/releases"
+ARG REF \
+    REPOSITORY="autodarts/releases"
 
 ###Build
 FROM --platform=${BUILDPLATFORM} alpine:latest AS build
-ARG version \
+ARG REF \
     BUILDPLATFORM \
     TARGETPLATFORM \
     REPOSITORY
@@ -13,8 +14,9 @@ RUN echo "I am running on ${BUILDPLATFORM}, building for ${TARGETPLATFORM}"  && 
     apk add wget tar && \
     PLATFORM=$(echo ${TARGETPLATFORM} | cut -d'/' -f1) && \
     ARCH=$(echo ${TARGETPLATFORM} | cut -d'/' -f2) && \
-    ASSETNAME="autodarts${version}.$PLATFORM-$ARCH.tar.gz" && \
-    wget "https://github.com/$REPOSITORY/releases/download/${version}/$ASSETNAME" && \
+    ASSETNAME="autodarts${REF}.$PLATFORM-$ARCH.tar.gz" && \
+    VERSION=$(echo ${REF} | sed -e 's/^v//') && \
+    wget "https://github.com/$REPOSITORY/releases/download/${REF}/$ASSETNAME" && \
     tar -vxf $ASSETNAME && \
     rm $ASSETNAME
 
@@ -23,8 +25,7 @@ FROM alpine:latest
 
 WORKDIR /usr/local/bin/autodarts
 COPY --from=build /autodarts .
-RUN echo "I am running on ${BUILDPLATFORM}, building for ${TARGETPLATFORM}" && \
-    chmod +x ./autodarts
+RUN chmod +x ./autodarts
 
 #expose the autodarts port
 EXPOSE 3180
