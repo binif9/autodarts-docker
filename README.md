@@ -10,7 +10,7 @@ To get started, use the following docker-compose configuration:
 version: '3.3'
 services:
   autodarts:
-    image: ghcr.io/michvllni/autodarts:latest
+    image: michvllni/autodarts:latest
     container_name: autodarts
     restart: unless-stopped
     ports:
