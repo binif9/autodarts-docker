@@ -1,7 +1,7 @@
 ## Installation
 It is possible to run autodarts in a docker container.
 
-If you do not know how to install docker, you cann follow [this](https://docs.docker.com/engine/install/) guide.
+If you do not know how to install docker, you can follow [this](https://docs.docker.com/engine/install/) guide.
 
 Please note that this is only available for linux based systems with either arm64 or amd64 architectures so far.
 
@@ -22,7 +22,7 @@ services:
 
 This configuration will automatically expose the cameras to the container and provide the board manager at http://servername:3180.
 
-You can also find this configuration at [This link](https://raw.githubusercontent.com/michvllni/autodarts-releases/main/docker-compose.yml).
+You can also find this configuration at [this link](https://raw.githubusercontent.com/michvllni/autodarts-releases/main/docker-compose.yml).
 
 Save it into the directory of your choice, then navigate into that directory and execute `sudo docker-compose up -d`
 
