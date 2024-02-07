@@ -16,7 +16,6 @@ on:
       - 'v*.*.*'
 
 permissions:
-  packages: write
   contents: read
 
 env:
@@ -46,7 +45,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Set Docker Image Metadata
-        id: meta_autodarts # you'll use this in the next step
+        id: set_image_metadata
         uses: docker/metadata-action@v3
         with:
           # list of Docker images to use as base name for tags
@@ -70,5 +69,5 @@ jobs:
           provenance: false
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta_autodarts.outputs.tags }}
-          labels: ${{ steps.meta_autodarts.outputs.labels }}
+          tags: ${{ steps.set_image_metadata.outputs.tags }}
+          labels: ${{ steps.set_image_metadata.outputs.labels }}
