@@ -5,7 +5,32 @@ If you do not know how to install docker, you can follow [this](https://docs.doc
 
 Please note that this is only available for linux based systems with either arm64 or amd64 architectures so far.
 
-To get started, use the following docker-compose configuration:
+Before getting started, you will have to know the names of your camera interfaces.
+
+You can find them with a tool like `v4l2-utils`:
+```sh
+sudo apt install v4l2-utils
+v4l2-ctl --list-devices
+```
+in the output, you will see your cameras. What you need is the first device path for each of them (in my case `/dev/video0`, `/dev/video2` and `/dev/video4`:
+```
+USB HD Camera: USB HD Camera (usb-0000:01:00.0-1.2):
+        /dev/video0
+        /dev/video1
+        /dev/media4
+
+USB HD Camera: USB HD Camera (usb-0000:01:00.0-1.3):
+        /dev/video2
+        /dev/video3
+        /dev/media5
+
+USB HD Camera: USB HD Camera (usb-0000:01:00.0-1.4):
+        /dev/video4
+        /dev/video5
+        /dev/media6
+```
+
+Use the following docker-compose configuration and add your devices in the `devices` section accordingly:
 ```yml
 version: '3.3'
 services:
@@ -15,7 +40,10 @@ services:
     restart: unless-stopped
     ports:
     - 3180:3180
-    privileged: true
+    devices:
+    - /dev/video0:/dev/video0
+    - /dev/video2:/dev/video2
+    - /dev/video4:/dev/video4
     volumes:
     - ./config:/root/.config/autodarts
 ```
