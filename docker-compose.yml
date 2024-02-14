@@ -6,6 +6,9 @@ services:
     restart: unless-stopped
     ports:
     - 3180:3180
-    privileged: true
+    devices:
+    - /dev/video0:/dev/video0
+    - /dev/video2:/dev/video2
+    - /dev/video4:/dev/video4
     volumes:
     - ./config:/root/.config/autodarts
