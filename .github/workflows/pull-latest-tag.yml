@@ -7,21 +7,23 @@ jobs:
   get-version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Find latest tag from autodarts
+        uses: oprypin/find-latest-tag@v1
+        id: autodarts-latest-tag
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Fetch release version
-        run: |
-          curl -sL https://api.github.com/repos/autodarts/releases/releases/latest | \
-          jq -r ".tag_name" > release-versions/autodarts-latest.txt
-      - name: Check for modified files
-        id: git-check
-        run: echo ::set-output name=modified::$([ -z "`git status --porcelain`" ] && echo "false" || echo "true")
-      - name: Commit latest release version
-        if: steps.git-check.outputs.modified == 'true'
-        run: |
-          git config --global user.name 'michvllni'
-          git config --global user.email 'michvllni@users.noreply.github.com'
-          git commit -am "New release version"
-          git tag $(cat release-versions/autodarts-latest.txt)
-          git push --follow-tags
+          repository: autodarts/releases
+          releases-only: true
+      - name: Find latest tag from this repo
+        uses: oprypin/find-latest-tag@v1
+        id: this-latest-tag
+        with:
+          repository: ${{ github.repository }}
+          releases-only: false
+
+      - uses: rickstaa/action-create-tag@v1
+        id: "tag_create"
+        if: steps.autodarts-latest-tag.outputs.tag != steps.this-latest-tag.outputs.tag
+        with:
+          tag: "${{ steps.autodarts-latest-tag.outputs.tag }}"
+          tag_exists_error: false
+          message: "Latest release tag from autodarts: ${{ steps.autodarts-latest-tag.outputs.tag }}"
