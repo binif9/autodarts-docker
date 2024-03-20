@@ -1,4 +1,4 @@
-name: Get latest release version
+name: Synchronize latest tag from autodarts
 on:
   schedule:
     - cron:  '0 10 * * *'
@@ -7,12 +7,16 @@ jobs:
   get-version:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Find latest tag from autodarts
         uses: oprypin/find-latest-tag@v1
         id: autodarts-latest-tag
         with:
           repository: autodarts/releases
           releases-only: true
+
       - name: Find latest tag from this repo
         uses: oprypin/find-latest-tag@v1
         id: this-latest-tag
@@ -20,8 +24,8 @@ jobs:
           repository: ${{ github.repository }}
           releases-only: false
 
-      - uses: rickstaa/action-create-tag@v1
-        id: "tag_create"
+      - name: Create tag
+        uses: rickstaa/action-create-tag@v1
         if: steps.autodarts-latest-tag.outputs.tag != steps.this-latest-tag.outputs.tag
         with:
           tag: "${{ steps.autodarts-latest-tag.outputs.tag }}"
