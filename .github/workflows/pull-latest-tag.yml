@@ -25,14 +25,14 @@ jobs:
           repository: ${{ github.repository }}
           releases-only: false
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      if: steps.autodarts-latest-tag.outputs.tag != steps.this-latest-tag.outputs.tag
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ steps.autodarts-latest-tag.outputs.tag }}
-        release_name: ${{ steps.autodarts-latest-tag.outputs.tag }}
-        draft: false
-        prerelease: false
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        if: steps.autodarts-latest-tag.outputs.tag != steps.this-latest-tag.outputs.tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.autodarts-latest-tag.outputs.tag }}
+          release_name: ${{ steps.autodarts-latest-tag.outputs.tag }}
+          draft: false
+          prerelease: false
