@@ -7,11 +7,9 @@ on:
 jobs:
   get-version:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Find latest tag from autodarts
         uses: oprypin/find-latest-tag@v1
