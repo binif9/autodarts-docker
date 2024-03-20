@@ -5,7 +5,7 @@ on:
   workflow_dispatch: null
 
 jobs:
-  get-version:
+  sync-release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
