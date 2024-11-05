@@ -1,12 +1,10 @@
-ARG VERSION \
-    REPOSITORY="autodarts/releases"
+ARG VERSION
 
 ###Build
 FROM --platform=${BUILDPLATFORM} alpine:latest AS build
-ARG REF \
+ARG VERSION \
     BUILDPLATFORM \
-    TARGETPLATFORM \
-    REPOSITORY
+    TARGETPLATFORM
 
 WORKDIR /
 RUN apk update && \
