@@ -1,4 +1,4 @@
-ARG REF \
+ARG VERSION \
     REPOSITORY="autodarts/releases"
 
 ###Build
@@ -13,9 +13,8 @@ RUN apk update && \
     apk add wget tar && \
     PLATFORM=$(echo ${TARGETPLATFORM} | cut -d'/' -f1) && \
     ARCH=$(echo ${TARGETPLATFORM} | cut -d'/' -f2) && \
-        VERSION=$(echo ${REF} | sed -e 's/^v//') && \
-    ASSETNAME="autodarts$VERSION.$PLATFORM-$ARCH.tar.gz" && \
-    wget "https://github.com/$REPOSITORY/releases/download/${REF}/$ASSETNAME" && \
+    ASSETURL=$(wget -qO- "https://get.autodarts.io/detection/latest/${PLATFORM}/${ARCH}/RELEASES.json" | jq -r --arg VERSION "$VERSION" '.releases[] | select(.version == $VERSION) | .url') && \
+    wget "$ASSETURL" && \
     tar -vxf $ASSETNAME && \
     rm $ASSETNAME
 
