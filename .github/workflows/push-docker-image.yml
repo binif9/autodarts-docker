@@ -42,7 +42,7 @@ jobs:
           echo "Current version from docker hub: v$currentVersion"
           if [ "$latestVersion" != "v$currentVersion" ]; then
             echo "New version available"
-            echo "version=$latestVersion" >> $GITHUB_OUTPUT
+            echo "version=v$latestVersion" >> $GITHUB_OUTPUT
           else
             echo "No new version available"
           fi
