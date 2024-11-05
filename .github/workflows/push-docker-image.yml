@@ -37,7 +37,8 @@ jobs:
           
           #get current version from docker hub michvllni/autodarts-docker
           currentVersion=$(curl -s https://hub.docker.com/v2/repositories/michvllni/autodarts/tags/ | jq -r '.results[].name' | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -n 1)
-          if [ "$latestVersion" != "$currentVersion" ]; then
+          echo "Current version from docker hub: v$currentVersion"
+          if [ "$latestVersion" != "v$currentVersion" ]; then
             echo "New version available"
             echo "::set-output name=version::$latestVersion"
           else
