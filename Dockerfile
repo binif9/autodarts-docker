@@ -10,10 +10,10 @@ ARG REF \
 
 WORKDIR /
 RUN apk update && \
-    apk add wget tar && \
+    apk add wget tar jq && \
     PLATFORM=$(echo ${TARGETPLATFORM} | cut -d'/' -f1) && \
     ARCH=$(echo ${TARGETPLATFORM} | cut -d'/' -f2) && \
-    ASSETURL=$(wget -qO- "https://get.autodarts.io/detection/latest/${PLATFORM}/${ARCH}/RELEASES.json" | jq -r --arg VERSION "$VERSION" '.releases[] | select(.version == $VERSION) | .url') && \
+    ASSETURL=$(wget -qO- "https://get.autodarts.io/detection/latest/${PLATFORM}/${ARCH}/RELEASES.json" | jq -r --arg VERSION "${VERSION}" '.releases[] | select(.version == ${VERSION}) | .url') && \
     wget "$ASSETURL" && \
     tar -vxf $ASSETNAME && \
     rm $ASSETNAME
