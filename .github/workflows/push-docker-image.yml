@@ -25,6 +25,8 @@ jobs:
   get_target_version:
     name: Get latest release from autodarts
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.autodarts-latest-release.outputs.version }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -40,7 +42,7 @@ jobs:
           echo "Current version from docker hub: v$currentVersion"
           if [ "$latestVersion" != "v$currentVersion" ]; then
             echo "New version available"
-            echo "::set-output name=version::$latestVersion"
+            echo "version=$latestVersion" >> $GITHUB_OUTPUT
           else
             echo "No new version available"
           fi
